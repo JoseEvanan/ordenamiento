@@ -1,0 +1,10 @@
+{% extends "orden/base.html" %}
+
+    {% block content %}
+        <div class="post">
+            <p>{{ post.entrada|linebreaks }}</p>
+            <p>{{ post.salida|linebreaks }}</p>
+        </div>
+    {% endblock %}
+
+   

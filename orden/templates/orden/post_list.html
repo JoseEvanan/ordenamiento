@@ -1,0 +1,14 @@
+
+{% extends "orden/base.html" %}
+
+    {% block content %}
+
+            {% for post in posts %}
+                <div class="post">
+                    <h1><a href="{% url "orden.views.post_detail" pk=post.pk %}">{{ post.title }}</a></h1>
+                    <p>{{ post.entrada|linebreaks }}</p>
+                    <p>{{ post.salida|linebreaks }}</p>
+                </div>
+            {% endfor %}
+          
+ {% endblock content %}
