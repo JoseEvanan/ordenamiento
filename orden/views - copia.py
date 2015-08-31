@@ -14,17 +14,7 @@ def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         v1= str(request.POST['entrada'])
-        print type(v1)
-        
-
-        sal=""            
-        for y in xrange(0,len(v1)):
-            if(y==0):
-                sal= str(v1[y])
-            else:
-                sal=sal+","+str(v1[y])
-
-        
+        sal= mergesort(v1)
         
         print sal
         if form.is_valid():
@@ -48,62 +38,8 @@ def post_detail(request, pk):
 
 #SORT DE PYTHON -TIM SORT ??? - mergesort??
 
-def evaluacion(elemento):
-    valor=elemento
-    cadena=valor.split(",")
-
-    tam=len(cadena)
-    print (str(tam) + "tamano")
-    ent=[]
-    cad=[]
-    pos=[]
-    cont=0
-    for x in xrange(0,tam):
-        cadena[x]=cadena[x].strip()
-        if(len(cadena[x])!=0):
-            try:
-                ent.append(int(cadena[x]))
-                pos.append(1)
-            except:
-                cad.append(str(cadena[x]))
-                pos.append(0)
-        else:
-            cont=cont+1
-    tam=tam-cont              
-    cad.sort(key=str.lower)
-    ent.sort()
-    string=""
-    cadena[:]=[]
-    i=0
-    j=0
-    x=0
-    for x in xrange(0,tam):
-        print x
-        if(pos[x]==0):
-            cadena.append(cad[i])
-            i=i+1   
-        else:
-            cadena.append(ent[j])
-            j=j+1 
-
-    
-    for y in xrange(0,tam):
-        if(y==0):
-            string= str(cadena[y])
-        else:
-            string=string+","+str(cadena[y])
-
-    return string 
-        
-## comparadores en un clases y patrones de diseno8
-def mergesort(slista):
-    
-    x=[]
-    for i in xrange(0,len(slista)):
-        x.append(int(slista[i]))
+def mergesort(x):
     result = []
-    der=[]
-    izq=[]
     if len(x) < 2:
         return x
     medio = int(len(x)/2)
@@ -111,14 +47,12 @@ def mergesort(slista):
     izq = mergesort(x[medio:]) 
     print str(izq) + "//" + str(der) 
     while (len(der) > 0) or (len(izq) > 0):
-        if len(der) > 0 and len(izq) > 0:
+        if (len(der) > 0) and (len(izq) > 0):
             if der[0] > izq[0]:
                 result.append(izq[0])
-                print type(izq)
                 izq.pop(0)
             else:
                 result.append(der[0])
-                print type(der)
                 der.pop(0)
         elif len(izq) > 0:
             for i in izq:
@@ -128,6 +62,4 @@ def mergesort(slista):
             for i in der:
                 result.append(i)
                 der.pop(0)
-
-
     return result

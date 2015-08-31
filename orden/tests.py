@@ -6,19 +6,29 @@ from django.contrib import auth
 
 class PostTestCase(TestCase):
 	def setUp(self):
-		user = auth.authenticate(username='jose', password='maucaylle')
-		jorge = auth.authenticate(username='jorge', password='jorge')
 		print "setup"
-		Post.objects.create(author=self.user ,title="ejemplo4" , entrada="c,d,a,4,2,1" , salida="a,c,d,1,2,4")
-		Post.objects.create(author=self.jorger ,title="ejemplo5" , entrada="f,2,d,r,9,g,5,s,3,1,c,6",salida="c,1,d,f,2,g,3,r,5,6,s,9")
+		Post.objects.create(title="test1" , entrada="22,21,19,18,15,14,9,7,5" , salida="5,7,9,14,15,18,19,21,22")
+		Post.objects.create(title="test2" , entrada="",salida="")
+		Post.objects.create(title="test3" , entrada="1,2,3,4,5,6,7,8,9,10" , salida="1,2,3,4,5,6,7,8,9,10")
+	
+	def test_autor(self):
+		post1=Post.objects.get(title="test1")
+		self.assertEqual(post1.entrada,"22,21,19,18,15,14,9,7,5")
 
-def test_autor(self):
-	post1=Post.objects.get(author=self.user)
-	print "autor"
-	assertEqual(post1.title,"ejemplo4")
+	def test_resultado(self):
+		post2=Post.objects.get(entrada="22,21,19,18,15,14,9,7,5")
+		self.assertEqual(post2.salida,"5,7,9,14,15,18,19,21,22")
 
-def test_resultado(self):
-	post2=Post.objects.get(author=self.user ,entrada="f,2,d,r,9,g,5,s,3,1,c,6")
-	print "resultado"
-	assertEqual(post.salida,"c,1,d,f,2,g,3,r,5,6,s,9")
+	def test_blanco(self):
+		post3=Post.objects.get( entrada="")
+		self.assertEqual(post3.salida,"")
+
+	def test_string(self):
+		post4=Post.objects.get(title="test3")
+		comparar=post4.__str__()
+		self.assertEqual(comparar,"test3")
+
+ 
+
+  
 
